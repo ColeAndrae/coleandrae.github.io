@@ -188,10 +188,15 @@
             flex-wrap: wrap;
         }
 
-        img {
-          object-fit: cover;
-          object-position: center 45%; 
-            height: 400px; 
+        .about-img {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .about-img img {
+            width: 100%;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
         }
 
         .about-text {
@@ -614,7 +619,7 @@
             </div>
             <div class="about-content">
                 <div class="about-img fade-in">
-                    <img src="https://coleandrae.github.io/cole-action-photo.png " alt="Cole Andrae Action Photo" style="object-fit: cover; object-position: center 45%; height: 400px;">
+                    <img src="https://coleandrae.github.io/cole-action-photo.png " alt="Cole Andrae Action Photo">
                 </div>
                 <div class="about-text fade-in">
                     <h3>Who Am I?</h3>
