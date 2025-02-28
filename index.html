@@ -6,13 +6,17 @@
     <title>Cole Andrae - CS & Biology Student</title>
     <style>
         :root {
-            --primary-color: #2a5298;
-            --secondary-color: #3a7ca5;
-            --accent-color: #16a085;
-            --text-color: #333;
-            --light-bg: #f8f9fa;
-            --dark-bg: #343a40;
+            --primary-color: #6366f1; /* Indigo */
+            --secondary-color: #8b5cf6; /* Violet */
+            --accent-color: #3b82f6; /* Blue */
+            --text-color: #e2e8f0; /* Light text for dark mode */
+            --dark-bg: #0f172a; /* Very dark blue */
+            --darker-bg: #020617; /* Even darker blue for contrast */
+            --card-bg: #1e293b; /* Slightly lighter blue for cards */
+            --border-color: #334155; /* Subtle border color */
             --section-padding: 80px 0;
+            --gradient-start: #1e40af; /* Deeper blue */
+            --gradient-end: #6d28d9; /* Rich purple */
         }
 
         * {
@@ -25,18 +29,19 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             line-height: 1.6;
             color: var(--text-color);
-            background-color: var(--light-bg);
+            background-color: var(--dark-bg);
             overflow-x: hidden;
         }
 
         a {
             text-decoration: none;
-            color: var(--primary-color);
+            color: var(--accent-color);
             transition: all 0.3s ease;
         }
 
         a:hover {
-            color: var(--accent-color);
+            color: var(--secondary-color);
+            text-shadow: 0 0 8px rgba(139, 92, 246, 0.5);
         }
 
         .container {
@@ -48,7 +53,8 @@
 
         /* Header */
         header {
-            background-color: var(--dark-bg);
+            background-color: rgba(15, 23, 42, 0.9); /* Semi-transparent dark background */
+            backdrop-filter: blur(10px);
             color: white;
             padding: 20px 0;
             position: fixed;
@@ -56,11 +62,12 @@
             top: 0;
             z-index: 1000;
             transition: all 0.3s ease;
+            border-bottom: 1px solid rgba(99, 102, 241, 0.2);
         }
 
         header.scrolled {
             padding: 10px 0;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 5px 20px rgba(99, 102, 241, 0.2);
         }
 
         nav {
@@ -76,7 +83,8 @@
         }
 
         .logo span {
-            color: var(--accent-color);
+            color: var(--secondary-color);
+            text-shadow: 0 0 10px rgba(139, 92, 246, 0.7);
         }
 
         .nav-links {
@@ -91,10 +99,22 @@
         .nav-links a {
             color: white;
             font-weight: 500;
+            position: relative;
         }
 
-        .nav-links a:hover {
-            color: var(--accent-color);
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background: linear-gradient(to right, var(--accent-color), var(--secondary-color));
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
         }
 
         .hamburger {
@@ -113,17 +133,41 @@
         /* Hero Section */
         .hero {
             height: 100vh;
-            background: linear-gradient(to right, rgba(41, 128, 185, 0.8), rgba(22, 160, 133, 0.8)), url('https://placeholder.com/1200x800') center/cover no-repeat;
+            background: linear-gradient(135deg, rgba(30, 64, 175, 0.9), rgba(109, 40, 217, 0.9)), url('https://placeholder.com/1200x800') center/cover no-repeat;
             display: flex;
             align-items: center;
             color: white;
             text-align: center;
             padding-top: 80px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(99, 102, 241, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(139, 92, 246, 0.15) 0%, transparent 50%);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
         }
 
         .hero-content h1 {
             font-size: 3.5rem;
             margin-bottom: 20px;
+            text-shadow: 0 0 15px rgba(99, 102, 241, 0.5);
+            background: linear-gradient(to right, #60a5fa, #c084fc);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
         }
 
         .hero-content p {
@@ -136,7 +180,7 @@
 
         .btn {
             display: inline-block;
-            background-color: var(--accent-color);
+            background: linear-gradient(to right, var(--accent-color), var(--secondary-color));
             color: white;
             padding: 12px 30px;
             border-radius: 5px;
@@ -144,28 +188,67 @@
             text-transform: uppercase;
             letter-spacing: 1px;
             transition: all 0.3s ease;
+            border: none;
+            position: relative;
+            z-index: 1;
+            overflow: hidden;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 100%;
+            background: linear-gradient(to right, var(--secondary-color), var(--accent-color));
+            transition: width 0.5s ease;
+            z-index: -1;
+        }
+
+        .btn:hover::before {
+            width: 100%;
         }
 
         .btn:hover {
-            background-color: #138a72;
+            box-shadow: 0 0 15px rgba(99, 102, 241, 0.5);
             transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
             color: white;
         }
 
         /* About Section */
         .about {
             padding: var(--section-padding);
+            background-color: var(--darker-bg);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .about::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 10% 90%, rgba(99, 102, 241, 0.1) 0%, transparent 40%),
+                radial-gradient(circle at 90% 10%, rgba(139, 92, 246, 0.1) 0%, transparent 40%);
+            pointer-events: none;
         }
 
         .section-title {
             text-align: center;
             margin-bottom: 60px;
+            position: relative;
         }
 
         .section-title h2 {
             font-size: 2.5rem;
-            color: var(--primary-color);
+            background: linear-gradient(to right, var(--accent-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
             position: relative;
             display: inline-block;
             padding-bottom: 15px;
@@ -179,13 +262,16 @@
             transform: translateX(-50%);
             width: 80px;
             height: 4px;
-            background-color: var(--accent-color);
+            background: linear-gradient(to right, var(--accent-color), var(--secondary-color));
+            border-radius: 2px;
         }
 
         .about-content {
             display: flex;
             align-items: center;
             flex-wrap: wrap;
+            position: relative;
+            z-index: 2;
         }
 
         .about-img {
@@ -195,11 +281,18 @@
 
         .about-img img {
             width: 100%;
-            height: 80%; 
+            height: 80%;
             object-fit: cover;
             object-position: center;
             border-radius: 10px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 10px 30px rgba(99, 102, 241, 0.3);
+            border: 2px solid var(--border-color);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .about-img img:hover {
+            transform: scale(1.02);
+            box-shadow: 0 15px 40px rgba(139, 92, 246, 0.4);
         }
 
         .about-text {
@@ -211,11 +304,12 @@
         .about-text h3 {
             font-size: 1.8rem;
             margin-bottom: 20px;
-            color: var(--primary-color);
+            color: var(--accent-color);
         }
 
         .about-text p {
             margin-bottom: 20px;
+            color: #cbd5e1; /* Slightly lighter than main text for better readability */
         }
 
         .skills {
@@ -225,42 +319,68 @@
         }
 
         .skill-tag {
-            background-color: var(--secondary-color);
+            background: linear-gradient(135deg, var(--accent-color), var(--secondary-color));
             color: white;
-            padding: 5px 15px;
+            padding: 8px 15px;
             border-radius: 50px;
             margin: 5px;
             font-size: 0.9rem;
+            box-shadow: 0 3px 10px rgba(99, 102, 241, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .skill-tag:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(139, 92, 246, 0.3);
         }
 
         /* Projects Section */
         .projects {
             padding: var(--section-padding);
-            background-color: var(--light-bg);
+            background-color: var(--dark-bg);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .projects::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 80% 20%, rgba(99, 102, 241, 0.1) 0%, transparent 40%),
+                radial-gradient(circle at 20% 80%, rgba(139, 92, 246, 0.1) 0%, transparent 40%);
+            pointer-events: none;
         }
 
         .project-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 30px;
+            position: relative;
+            z-index: 2;
         }
 
         .project-card {
-            background-color: white;
-            border-radius: 10px;
+            background-color: var(--card-bg);
+            border-radius: 15px;
             overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
             transition: all 0.3s ease;
+            border: 1px solid var(--border-color);
         }
 
         .project-card:hover {
             transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 20px 40px rgba(99, 102, 241, 0.3);
+            border-color: var(--accent-color);
         }
 
         .project-img {
             height: 200px;
-            background-color: var(--secondary-color);
+            background: linear-gradient(135deg, var(--accent-color), var(--secondary-color));
             display: flex;
             align-items: center;
             justify-content: center;
@@ -269,18 +389,18 @@
         }
 
         .project-content {
-            padding: 20px;
+            padding: 25px;
         }
 
         .project-content h3 {
             font-size: 1.5rem;
             margin-bottom: 10px;
-            color: var(--primary-color);
+            color: var(--accent-color);
         }
 
         .project-content p {
             margin-bottom: 15px;
-            color: #666;
+            color: #cbd5e1;
         }
 
         .tech-stack {
@@ -290,39 +410,79 @@
         }
 
         .tech-tag {
-            background-color: #f1f1f1;
-            color: var(--text-color);
-            padding: 3px 10px;
+            background-color: rgba(99, 102, 241, 0.2);
+            color: #a5b4fc;
+            padding: 5px 12px;
             border-radius: 50px;
-            margin: 2px;
+            margin: 3px;
             font-size: 0.8rem;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(99, 102, 241, 0.1);
+        }
+
+        .tech-tag:hover {
+            background-color: rgba(99, 102, 241, 0.3);
         }
 
         .project-links a {
             margin-right: 15px;
-            font-weight: 500;
+            font-weight: 600;
+            position: relative;
+        }
+
+        .project-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -3px;
+            left: 0;
+            background: linear-gradient(to right, var(--accent-color), var(--secondary-color));
+            transition: width 0.3s ease;
+        }
+
+        .project-links a:hover::after {
+            width: 100%;
         }
 
         /* Experience Section */
         .experience {
             padding: var(--section-padding);
+            background-color: var(--darker-bg);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .experience::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 30% 30%, rgba(99, 102, 241, 0.1) 0%, transparent 40%),
+                radial-gradient(circle at 70% 70%, rgba(139, 92, 246, 0.1) 0%, transparent 40%);
+            pointer-events: none;
         }
 
         .timeline {
             position: relative;
             max-width: 800px;
             margin: 0 auto;
+            z-index: 2;
         }
 
         .timeline::after {
             content: '';
             position: absolute;
             width: 6px;
-            background-color: var(--secondary-color);
+            background: linear-gradient(to bottom, var(--accent-color), var(--secondary-color));
             top: 0;
             bottom: 0;
             left: 50%;
             transform: translateX(-50%);
+            border-radius: 3px;
         }
 
         .timeline-item {
@@ -345,10 +505,11 @@
             position: absolute;
             width: 20px;
             height: 20px;
-            background-color: var(--accent-color);
+            background: linear-gradient(135deg, var(--accent-color), var(--secondary-color));
             border-radius: 50%;
             top: 20px;
             z-index: 1;
+            box-shadow: 0 0 10px rgba(99, 102, 241, 0.5);
         }
 
         .timeline-item:nth-child(odd)::after {
@@ -360,15 +521,23 @@
         }
 
         .timeline-content {
-            padding: 20px;
-            background-color: white;
-            border-radius: 10px;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            padding: 25px;
+            background-color: var(--card-bg);
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+            border: 1px solid var(--border-color);
+            transition: all 0.3s ease;
+        }
+
+        .timeline-content:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(99, 102, 241, 0.3);
+            border-color: var(--accent-color);
         }
 
         .timeline-content h3 {
             font-size: 1.2rem;
-            color: var(--primary-color);
+            color: var(--accent-color);
             margin-bottom: 10px;
         }
 
@@ -379,7 +548,7 @@
         }
 
         .timeline-content .date {
-            color: #888;
+            color: #94a3b8;
             font-style: italic;
             margin-bottom: 10px;
         }
@@ -387,13 +556,30 @@
         /* Contact Section */
         .contact {
             padding: var(--section-padding);
-            background-color: var(--light-bg);
+            background-color: var(--dark-bg);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .contact::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 10% 20%, rgba(99, 102, 241, 0.1) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(139, 92, 246, 0.1) 0%, transparent 40%);
+            pointer-events: none;
         }
 
         .contact-content {
             display: flex;
             flex-wrap: wrap;
             gap: 30px;
+            position: relative;
+            z-index: 2;
         }
 
         .contact-info {
@@ -403,12 +589,13 @@
 
         .contact-info h3 {
             font-size: 1.5rem;
-            color: var(--primary-color);
+            color: var(--accent-color);
             margin-bottom: 20px;
         }
 
         .contact-info p {
             margin-bottom: 30px;
+            color: #cbd5e1;
         }
 
         .contact-links {
@@ -419,19 +606,25 @@
         .contact-link {
             display: flex;
             align-items: center;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
+            transition: transform 0.3s ease;
+        }
+
+        .contact-link:hover {
+            transform: translateX(5px);
         }
 
         .contact-link i {
-            width: 40px;
-            height: 40px;
-            background-color: var(--primary-color);
+            width: 45px;
+            height: 45px;
+            background: linear-gradient(135deg, var(--accent-color), var(--secondary-color));
             color: white;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             margin-right: 15px;
+            box-shadow: 0 5px 15px rgba(99, 102, 241, 0.3);
         }
 
         .contact-form {
@@ -447,15 +640,25 @@
             display: block;
             margin-bottom: 8px;
             font-weight: 500;
+            color: #cbd5e1;
         }
 
         .form-control {
             width: 100%;
-            padding: 12px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
+            padding: 15px;
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
             font-size: 1rem;
             font-family: inherit;
+            color: var(--text-color);
+            transition: all 0.3s ease;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--accent-color);
+            box-shadow: 0 0 10px rgba(99, 102, 241, 0.3);
         }
 
         textarea.form-control {
@@ -465,39 +668,67 @@
 
         /* Footer */
         footer {
-            background-color: var(--dark-bg);
+            background-color: var(--darker-bg);
             color: white;
             padding: 40px 0;
             text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 50% 0%, rgba(99, 102, 241, 0.2) 0%, transparent 50%);
+            pointer-events: none;
         }
 
         .social-links {
             display: flex;
             justify-content: center;
             margin-bottom: 20px;
+            position: relative;
+            z-index: 2;
         }
 
         .social-links a {
-            width: 40px;
-            height: 40px;
+            width: 45px;
+            height: 45px;
             border-radius: 50%;
-            background-color: #444;
+            background: linear-gradient(135deg, var(--accent-color), var(--secondary-color));
             color: white;
             display: flex;
             align-items: center;
             justify-content: center;
             margin: 0 10px;
             transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
         }
 
         .social-links a:hover {
-            background-color: var(--accent-color);
-            transform: translateY(-5px);
+            transform: translateY(-5px) rotate(10deg);
+            box-shadow: 0 8px 20px rgba(99, 102, 241, 0.4);
         }
 
         .copyright {
             font-size: 0.9rem;
-            color: #aaa;
+            color: #94a3b8;
+            position: relative;
+            z-index: 2;
+        }
+
+        .copyright a {
+            color: #cbd5e1;
+            transition: color 0.3s ease;
+        }
+
+        .copyright a:hover {
+            color: var(--secondary-color);
         }
 
         /* Responsive Design */
@@ -526,13 +757,15 @@
                 position: absolute;
                 right: 0;
                 top: 70px;
-                background-color: var(--dark-bg);
+                background-color: rgba(15, 23, 42, 0.95);
+                backdrop-filter: blur(10px);
                 flex-direction: column;
                 width: 50%;
                 height: calc(100vh - 70px);
                 transform: translateX(100%);
                 transition: transform 0.5s ease-in;
                 padding-top: 20px;
+                border-left: 1px solid var(--border-color);
             }
 
             .nav-links li {
@@ -579,6 +812,28 @@
             opacity: 1;
             transform: translateY(0);
         }
+
+        /* Glowing effect for some elements */
+        .glow {
+            position: relative;
+        }
+
+        .glow::after {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            right: -10px;
+            bottom: -10px;
+            background: radial-gradient(circle at center, rgba(99, 102, 241, 0.3) 0%, transparent 70%);
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .glow:hover::after {
+            opacity: 1;
+        }
     </style>
 </head>
 <body>
@@ -621,7 +876,7 @@
                 <h2>About Me</h2>
             </div>
             <div class="about-content">
-                <div class="about-img fade-in">
+                <div class="about-img fade-in glow">
                     <img src="cole-action-photo2.png" alt="Cole Andrae Action Photo">
                 </div>
                 <div class="about-text fade-in">
@@ -689,7 +944,7 @@
                             <span class="tech-tag">Game Development</span>
                         </div>
                         <div class="project-links">
-                            <a href="https://github.students.cs.ubc.ca/CPSC210-2023W-T1/project_b7x1v" target="_blank">GitHub</a>
+                            <a href="https://github.students.cs.ubc.ca/CP<a href="https://github.students.cs.ubc.ca/CPSC210-2023W-T1/project_b7x1v" target="_blank">GitHub</a>
                         </div>
                     </div>
                 </div>
@@ -802,7 +1057,7 @@
             </div>
             <div class="copyright">
                 &copy; 2025 Cole Andrae. All Rights Reserved. <br>
-                Website founded by <a href="mailto:cole@theandraes.com" style="color: #aaa;">Cole Andrae</a>
+                Website founded by <a href="mailto:cole@theandraes.com" style="color: #cbd5e1;">Cole Andrae</a>
             </div>
         </div>
     </footer>
@@ -875,11 +1130,77 @@
             // For demonstration, we'll just log it and show an alert
             console.log({name, email, subject, message});
             
-            alert(`Thanks for your message`);
+            alert(`Thanks for your message, ${name}! I'll get back to you shortly.`);
             
             // Reset form
             contactForm.reset();
         });
+
+        // Add particle effect to hero section (optional)
+        function createParticleEffect() {
+            const hero = document.querySelector('.hero');
+            const particleCount = 50;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                
+                // Random position, size, and animation delay
+                const size = Math.random() * 5 + 2;
+                
+                particle.style.cssText = `
+                    position: absolute;
+                    width: ${size}px;
+                    height: ${size}px;
+                    background: rgba(255, 255, 255, ${Math.random() * 0.5 + 0.1});
+                    border-radius: 50%;
+                    top: ${Math.random() * 100}%;
+                    left: ${Math.random() * 100}%;
+                    animation: float ${Math.random() * 10 + 10}s linear infinite;
+                    animation-delay: -${Math.random() * 10}s;
+                    z-index: 1;
+                    box-shadow: 0 0 ${size * 2}px rgba(99, 102, 241, 0.5);
+                `;
+                
+                hero.appendChild(particle);
+            }
+        }
+        
+        // Add CSS animation for particles
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes float {
+                0% {
+                    transform: translateY(0) translateX(0);
+                    opacity: 0;
+                }
+                10% {
+                    opacity: 1;
+                }
+                90% {
+                    opacity: 1;
+                }
+                100% {
+                    transform: translateY(-100px) translateX(${Math.random() * 100 - 50}px);
+                    opacity: 0;
+                }
+            }
+            
+            .hamburger.toggle .line1 {
+                transform: rotate(-45deg) translate(-5px, 6px);
+            }
+            
+            .hamburger.toggle .line2 {
+                opacity: 0;
+            }
+            
+            .hamburger.toggle .line3 {
+                transform: rotate(45deg) translate(-5px, -6px);
+            }
+        `;
+        
+        document.head.appendChild(style);
+        createParticleEffect();
     </script>
 </body>
 </html>
